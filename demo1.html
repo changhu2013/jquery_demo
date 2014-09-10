@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    </head>
+    <style type="text/css">
+        .highLight {
+            background-color:yellow;
+        }
+    </style>
+    <body>
+        <div>DIV 1</div>
+        <div id="panel" style="width:100px; height:100px; border:red 1px solid;">
+            <div class="title" style="height:20px; width:100%;color:white;">TITLE</div>
+        </div>
+        <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+        </ul>
+        <input type="text" value="1">;
+        <input type="text" value="2">;
+        <input type="text" value="3">;
+        <input type="text" value="4">;
+        <input type="text" value="5">;
+    </body>
+    <script type="text/javascript">
+
+        var body = $(document.body);
+        console.log(body instanceof jQuery);
+
+        var arrays = $([document.body, document.head]);
+        console.log(arrays);
+
+        var div1 = $('<div style="width:100px; height:100px; border:red 1px solid;"></div>');
+        console.log(div1);
+
+        var div2 = $('<div>', {
+            html : 'DIV 2',
+            style : 'width:100px; height:100px; border:red 1px solid;'
+        });
+        console.log(div2);
+
+        console.log('is() : ' + div1.is(div2));
+        console.log('is() : ' +  $('#panel > div').is($('.title')));
+
+        console.log($('.title').is(function(){
+            var a = this;
+            return $('#panel > div', this).length === 0;
+        }));
+
+        var panel = $('#panel');
+        var title = $('.title', panel);
+        console.log(title);
+
+        console.log($('.title').length);
+
+        $('.title').css({
+                'background-color' : 'blue'
+        }).hover(function(){
+            $(this).css({
+                'background-color' : '#C0C0C0'
+            })
+        }, function(){
+            $(this).css({
+                'background-color' : 'blue'
+            });
+        });
+
+
+        console.log(panel.get(0));
+        console.log(panel.eq(0));
+
+        /*
+        $('li').each(function(index, element){
+            $(element).prepend( '<em>' + (index + 1) + '</em>');
+
+            console.log('each:' + index + ':' + element);
+        });
+        */
+
+        var a =  $('input:text').map(function(index, element){
+            return $(this).val();
+        });
+
+        var b = a.get();
+        var c = b.join(',');
+
+        console.log(c);
+
+        $('li').click(function(){
+            $('li').removeClass('highLight');
+            $(this).addClass('highLight');
+        });
+
+        //
+        $(document).ready(function(){
+            console.log('ready');
+        });
+
+        $(function(){
+            console.log('ready2');
+        });
+
+
+        //first返回结果集中的第一个成员
+        var first = $('li').first();
+        //last返回结构集中的最后一个成员
+        var last = $('li').last();
+
+        //next 返回下一个
+        var next = $('li').first().next();
+        //prev 返回紧邻上一个同级元素
+        var prev = $('li').last().prev();
+
+        var parent = $('li').parent();
+        var parents = $('li').parents();
+
+        var children = $('li').children(); 
+        var children2 = $('li > *');
+        
+    </script>
+</html>
